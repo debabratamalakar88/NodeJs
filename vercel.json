@@ -13,7 +13,7 @@
         }
     ],
     "env": {
-        "MONGODB_URI": "@mongodb_uri",
+        "MONGODB_URI": "mongodb+srv://debabratamalakar88:LwRz6VBvDLGlharN@mynodejs.4bqtz1h.mongodb.net/",
         "PORT": "3000"
     }
 }
