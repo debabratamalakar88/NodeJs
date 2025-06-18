@@ -1,0 +1,95 @@
+<%- include('lib/header') -%>
+
+    <!-- content -->
+    <main class="py-5">
+      <div class="container">
+        <div class="row justify-content-md-center">
+          <div class="col-md-8">
+            <div class="card">
+              <div class="card-header card-title">
+                <strong>Add New Contact</strong>
+              </div>           
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-12">
+                    <form action="/addContact" method="POST" enctype="multipart/form-data">
+                     <% if (errors) { %>
+                      <div class="alert alert-danger" role="alert">
+                        <ul>
+                          <% errors.forEach(error => { %>
+                            <li><%= error.msg %></li>
+                          <% }) %>
+                        </ul>
+                      </div>
+                      <% } %>
+                    <div class="form-group row">
+                      <label for="first_name" class="col-md-3 col-form-label">First Name</label>
+                      <div class="col-md-9">
+                        <input type="text" name="first_name" id="first_name" class="form-control">
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label for="last_name" class="col-md-3 col-form-label">Last Name</label>
+                      <div class="col-md-9">
+                        <input type="text" name="last_name" id="last_name" class="form-control">
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label for="email" class="col-md-3 col-form-label">Email</label>
+                      <div class="col-md-9">
+                        <input type="text" name="email" id="email" class="form-control">
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label for="phone" class="col-md-3 col-form-label">Phone</label>
+                      <div class="col-md-9">
+                        <input type="text" name="phone" id="phone" class="form-control">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="profilePicture" class="col-md-3 col-form-label">Profile Picture</label>
+                      <div class="col-md-9">
+                        <input type="file" name="profilePicture" id="profilePicture" class="form-control-file">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="imageGallery" class="col-md-3 col-form-label">Image Gallery</label>
+                      <div class="col-md-9">
+                        <input type="file" name="imageGallery" id="imageGallery" class="form-control-file" multiple>
+                        <small class="form-text text-muted">You can upload multiple images.</small>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="docCV" class="col-md-3 col-form-label">CV Document</label>
+                      <div class="col-md-9">
+                        <input type="file" name="docCV" id="docCV" class="form-control-file">
+                        <small class="form-text text-muted">Upload your CV in PDF format.</small>
+                      </div>
+                    </div>
+                    
+                    <div class="form-group row">
+                      <label for="name" class="col-md-3 col-form-label">Address</label>
+                      <div class="col-md-9">
+                        <textarea name="address" id="address" rows="3" class="form-control"></textarea>
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="form-group row mb-0">
+                      <div class="col-md-9 offset-md-3">
+                          <button type="submit" class="btn btn-primary">Save</button>
+                          <a href="/manageContact" class="btn btn-outline-secondary">Cancel</a>
+                      </div>
+                    </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+ <%- include('lib/footer') -%>

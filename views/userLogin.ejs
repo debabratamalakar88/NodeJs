@@ -1,0 +1,52 @@
+<%- include('lib/header') -%>
+
+    <!-- content -->
+    <main class="py-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header card-title">
+                <strong>User Login</strong>
+              </div>           
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-12">
+                    <form action="/userLogin" method="POST">
+                     <% if (errors) { %>
+                      <div class="alert alert-danger" role="alert">
+                        <ul>
+                          <% errors.forEach(error => { %>
+                            <li><%= error.msg %></li>
+                          <% }) %>
+                        </ul>
+                      </div>
+                      <% } %>                    
+
+                    <div class="form-group row">
+                      <label for="email" class="col-md-3 col-form-label">Email</label>
+                      <div class="col-md-9">
+                        <input type="text" name="email" id="email" class="form-control">
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label for="password" class="col-md-3 col-form-label">Password</label>
+                    <div class="col-md-9">
+                        <input type="password" name="password" id="password" class="form-control">
+                    </div>
+                    </div>
+                    <hr>
+                    <div class="form-group row mb-0">
+                      <div class="col-md-9 offset-md-3">
+                          <button type="submit" class="btn btn-primary">Login</button>
+                      </div>
+                    </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+      </div>
+    </main>
+ <%- include('lib/footer') -%>

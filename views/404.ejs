@@ -1,0 +1,36 @@
+<%- include('lib/header') -%>
+
+    <!-- content -->
+    <main class="py-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-title">
+                  <div class="d-flex align-items-center">
+                    <h2 class="mb-0">404 Error</h2>                    
+                  </div>
+                </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="alert alert-danger" role="alert">
+                        <% if (message) { %>
+                          <h4 class="alert-heading">Error: <%= message %></h4>
+                        <% } else { %>
+                      <h4 class="alert-heading">Page Not Found!</h4>
+                        <% } %>
+                      <p>The page you are looking for does not exist or has been moved.</p>
+                      <hr>
+                      <p class="mb-0">Please check the URL or return to the <a href="/manageContact">contact management page</a>.</p>
+                    </div>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+ <%- include('lib/footer') -%>
