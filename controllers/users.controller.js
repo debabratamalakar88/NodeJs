@@ -79,8 +79,9 @@ export const userLoginSubmit = async (req, res) => {
 
   // Validate input
   if (!email || !password) {
-    return res.status(400).render('login', {
+    return res.status(400).render('userLogin', {
       title: 'Login',
+      errors: null,
       message: 'Email and password are required.'
     });
   }
@@ -88,29 +89,66 @@ export const userLoginSubmit = async (req, res) => {
   try {
     // Find the user by email
     const user = await User.findOne({ email });
+    res.cookie('userEmailCookie', email, 
+      { 
+        maxAge: 900000,
+        httpOnly: true,
+        //secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
+        //sameSite: 'Strict', // Prevent CSRF attacks by restricting cookie to same site
+        //signed: true, // Sign the cookie to prevent tampering
+       }); // Set a cookie for the user email');
 
-    if (!user || user.password !== password) { // In a real application, compare hashed passwords
-      return res.status(401).render('login', {
+    if (!user) { // In a real application, compare hashed passwords
+      return res.status(401).render('userLogin', {
         title: 'Login',
-        message: 'Invalid email or password.'
+        errors: null,
+        message: 'Invalid Email'
       });
     }
 
+    // Compare the provided password with the stored hashed password
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(401).render('userLogin', {
+        title: 'Login',
+        errors: null,
+        message: 'Invalid Password'
+      });
+    }
+
+
+
     // Set user session (this is a placeholder, implement session management as needed)
-    req.session.userId = user._id;
+    
+    req.session.userId = user._id; // Store user ID in session
+    req.session.userName = user.firstName; // Store user name in session
+    req.session.userEmail = user.email; // Store user email in session
+
+    //const userEmailCookie = req.cookies.userEmailCookie; // Retrieve the user email from the cookie
+    const userEmailCookie = req.signedCookies.userEmailCookie || req.cookies.userEmailCookie; // Retrieve the user email from the signed cookie or regular cookie
+    if (!userEmailCookie) {      
+      return res.status(500).render('userLogin', {
+        title: 'Login',
+        errors: null,
+        message: 'An error occurred while logging in.'
+      });
+    }
 
     res.redirect('/manageContact'); // Redirect to dashboard after successful login
   } catch (error) {
     console.error("Database error:", error);
-    res.status(500).render('login', {
+    res.status(500).render('userLogin', {
       title: 'Login',
+      errors: null,
       message: 'An error occurred while logging in.'
     });
   }
 }
 
 
-export const getUserProfile = async (req, res) => {
+
+
+export const dashboard = async (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     return res.render('404', {
       title: 'Error',
@@ -127,8 +165,8 @@ export const getUserProfile = async (req, res) => {
       });
     }
 
-    res.render('userProfile', { 
-      title: 'User Profile',
+    res.render('dashboard', { 
+      title: 'Dashboard',
       user: user
     });
 
@@ -141,3 +179,23 @@ export const getUserProfile = async (req, res) => {
   }
 };
 
+export const userLogout = async (req, res) => {
+  // Destroy the session to log out the user
+  req.session.destroy((err) => {
+    if (err) {
+      console.error("Session destruction error:", err);
+      return res.status(500).render('userLogout', {
+        title: 'User Logout',
+        errors: null,
+        message: 'An error occurred while logging out.'
+      });
+    }
+  }); 
+  res.clearCookie('userEmailCookie'); // Clear the user email cookie 
+  res.render('userLogin', {
+    title: 'User Login',
+    errors: null,
+    message: null,
+    description: 'Please enter your email and password to log in.',
+  });
+};

@@ -1,0 +1,51 @@
+[{
+  "_id": {
+    "$oid": "68525dcd797dac1f8eb606e8"
+  },
+  "firstName": "Dev",
+  "lastName": "Test",
+  "email": "dev@gmail.com",
+  "password": "$2b$10$r5xZYmiXkgWH8pup2Wyn5.SHdmw0XBnO5GvHyOy3K8euhlpyep6La",
+  "phoneNumber": "234343242",
+  "createdAt": {
+    "$date": "2025-06-18T06:33:49.102Z"
+  },
+  "updatedAt": {
+    "$date": "2025-06-18T06:33:49.102Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68525e0c93f9d1ae786fa34a"
+  },
+  "firstName": "Dev",
+  "lastName": "Testt",
+  "email": "ss@ss.com",
+  "password": "$2b$10$/Stb24df1cqPUXTYQHva6egPTnd2zFCkdexHYlgI8gvsVUIw4eFFi",
+  "phoneNumber": "72376327842",
+  "createdAt": {
+    "$date": "2025-06-18T06:34:52.511Z"
+  },
+  "updatedAt": {
+    "$date": "2025-06-18T06:34:52.511Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68526250d0516f372f30282c"
+  },
+  "firstName": "Dev",
+  "lastName": "Testt",
+  "email": "kk@gmail.com",
+  "password": "$2b$10$vmfygCdZCpRuuu10Qpz9eeJSYlAqD3H2NjSExeO4qjDzvZ963L7pO",
+  "phoneNumber": "56565326",
+  "createdAt": {
+    "$date": "2025-06-18T06:53:04.639Z"
+  },
+  "updatedAt": {
+    "$date": "2025-06-18T06:53:04.639Z"
+  },
+  "__v": 0
+}]
