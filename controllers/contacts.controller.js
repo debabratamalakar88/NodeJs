@@ -32,7 +32,8 @@ export const manageContact = async (req, res) => {
       prevPage: contacts.prevPage, // Previous page number  
       totalContacts: contacts.totalDocs, // Total number of contacts
       pagingCounter: contacts.pagingCounter, // Current page's starting index 
-      limit: contacts.limit // Number of contacts per page
+      limit: contacts.limit, // Number of contacts per page
+      userEmailCookie: req.cookies.userEmailCookie || null // Pass user email from cookie if available
     });
 
   } catch (error) {
@@ -47,6 +48,7 @@ export const manageContact = async (req, res) => {
 export const addContact = async (req, res) => {  
   res.render('addContact', {
     title: 'Add Contact',
+    csrfToken: req.csrfToken(), // Pass CSRF token to the view
     errors: null,
     message: null,
     description: 'Fill out the form to add a new contact.'

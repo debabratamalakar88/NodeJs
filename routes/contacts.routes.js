@@ -1,6 +1,9 @@
 import express from 'express';
 const router = express.Router();
 
+import csrf from 'csurf';
+const csrfProtection = csrf({ cookie: true });
+
 import { 
     home,
     manageContact,
@@ -18,13 +21,14 @@ import { formValidator } from '../middleware/contactValidate.js';
 
 router.get('/', home)
 router.get('/manageContact', manageContact);
-router.get('/addContact', addContact);
-router.post('/addContact', uploadFields,formValidator, addContactSubmit);
+router.get('/addContact',csrfProtection, addContact);
+router.post('/addContact', uploadFields,csrfProtection,formValidator, addContactSubmit);
 router.get('/editContact/:id', editContact);
 router.post('/editContact', editContactSubmit);
 router.get('/viewContact/:id', viewContact);
 router.get('/deleteContact/:id', deleteContact);
 
+// Error handling middleware for contact upload
 router.use(ContactErrorHandler);
 
 
